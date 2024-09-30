@@ -3,6 +3,12 @@
     "home": "home",
     "search": "rechercher"
   },
+  "movies": {
+    "trending_this_week": "Populaire cette semaine",
+    "trending_today": "Populaire aujourd'hui",
+    "see_details": "Voir les details",
+    "result_for_search": "resultat(s) pour \"{{search}}\""
+  },
   "errors": {
     "an_error_occured": "an error occured",
     "error_404": "not found",

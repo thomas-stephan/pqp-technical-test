@@ -1,7 +1,9 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { QueryClientProvider } from 'react-query'
 
+import { queryClient } from './api/api'
 import AppErrorBoundaryFallback from './components/feature/appErrorBoundary/AppErrorBoundaryFallback'
 import AppLoader from './components/feature/appLoader/AppLoader'
 import MainRouter from './router'
@@ -12,10 +14,12 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={AppErrorBoundaryFallback}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Suspense fallback={<AppLoader />}>
-          <MainRouter />
-        </Suspense>
+        <QueryClientProvider client={queryClient}>
+          <CssBaseline />
+          <Suspense fallback={<AppLoader />}>
+            <MainRouter />
+          </Suspense>
+        </QueryClientProvider>
       </ThemeProvider>
     </ErrorBoundary>
   )

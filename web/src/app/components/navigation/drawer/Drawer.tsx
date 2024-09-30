@@ -3,11 +3,11 @@ import { Backdrop, IconButton, Stack, Typography } from '@mui/material'
 import React from 'react'
 
 import Logo from '../../feature/logo/Logo'
-import { useNavigationReducer } from '../store'
+import { useNavigationStore } from '../store'
 import { sxs } from './_sxs'
 
 const Drawer: React.FC = () => {
-  const { isDrawerOpen, toggleDrawer } = useNavigationReducer()
+  const { isDrawerOpen, toggleDrawer } = useNavigationStore()
 
   const handleCloseDrawer = () => {
     toggleDrawer(false)

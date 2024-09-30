@@ -1,5 +1,6 @@
 import axios from 'axios'
 import axiosRateLimit from 'axios-rate-limit'
+import { QueryClient } from 'react-query'
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
@@ -14,6 +15,4 @@ export const requester = axiosRateLimit(instance, {
   perMilliseconds: 1000,
 })
 
-console.log({
-  VITE_API_BEARER: import.meta.env.VITE_API_BEARER,
-})
+export const queryClient = new QueryClient()

@@ -1,91 +1,23 @@
-import { Button, CircularProgress, Stack, Typography } from '@mui/material'
-import { debounce } from 'lodash'
+import { Stack } from '@mui/material'
 import React from 'react'
 
-import { useSearchBooks } from '../api/queries/books'
-import InfiniteScroller from '../components/common/infiniteScroller/InfiniteScroller'
-import SearchBar from '../components/common/searchBar/SearchBar'
+import MovieSearch from '../components/feature/movieSearch/MovieSearch'
+import { useSearchStore } from '../components/feature/movieSearch/_store'
+import TrendingMovies from '../components/feature/trendingMovies/TrendingMovies'
 import PageLayout from '../components/wrappers/pageLayout/PageLayout'
 import PageWrapper from '../components/wrappers/pageWapper/PageWrapper'
 
 const HomePage: React.FC = () => {
-  const [search, setSearch] = React.useState('')
-  const [page, setPage] = React.useState(1)
-  const [memoizedData, setMemoizedData] = React.useState<any>(undefined)
-
-  const { data, isLoading, refetch } = useSearchBooks({
-    name: search,
-    page: page,
-  })
-
-  console.log({
-    data,
-    memoizedData,
-    found: data?.data.numFound,
-    isLoading,
-  })
-
-  React.useEffect(() => {
-    if (data?.data.docs) {
-      setMemoizedData([...(memoizedData ?? []), ...data.data.docs])
-    }
-  }, [data?.data.docs])
-
-  const handleSearchDebounced = React.useCallback(
-    debounce((name: string) => {
-      console.log({
-        name,
-        search,
-      })
-
-      setMemoizedData(undefined)
-      setPage(1)
-
-      if (name === search) {
-        setMemoizedData(undefined)
-        setPage(1)
-        refetch()
-      } else {
-        setSearch(name)
-      }
-    }, 250),
-    [search],
-  )
-
-  const handleInfiniteScroll = () => {
-    setPage(page + 1)
-  }
-
+  const { isSearchActive } = useSearchStore()
   return (
     <PageWrapper>
       <PageLayout>
-        <SearchBar
-          onSearch={(e) => {
-            handleSearchDebounced(e)
-          }}
-        />
-        {memoizedData && (
-          <InfiniteScroller
-            loading={isLoading}
-            onLoadMore={handleInfiniteScroll}
-          >
-            <Stack>
-              {memoizedData.map((x: any) => (
-                <Typography key={x.title}>{x.title}</Typography>
-              ))}
-            </Stack>
-          </InfiniteScroller>
-        )}
-        {isLoading ? (
-          <Stack direction="row" justifyContent="center">
-            <CircularProgress />
+        <MovieSearch />
+        {!isSearchActive && (
+          <Stack padding="2rem 0" gap="3rem">
+            <TrendingMovies timeWindow="day" />
+            <TrendingMovies timeWindow="week" />
           </Stack>
-        ) : (
-          memoizedData && (
-            <Stack direction="row" justifyContent="center">
-              <Button onClick={handleInfiniteScroll}>more</Button>
-            </Stack>
-          )
         )}
       </PageLayout>
     </PageWrapper>

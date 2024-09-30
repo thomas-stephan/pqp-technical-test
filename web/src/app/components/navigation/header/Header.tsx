@@ -3,11 +3,11 @@ import { Button, Stack } from '@mui/material'
 import React from 'react'
 
 import Logo from '../../feature/logo/Logo'
-import { useNavigationReducer } from '../store'
+import { useNavigationStore } from '../store'
 import { sxs } from './_sxs'
 
 const Header: React.FC = () => {
-  const { toggleDrawer } = useNavigationReducer()
+  const { toggleDrawer } = useNavigationStore()
 
   const handleClick = () => {
     toggleDrawer(true)

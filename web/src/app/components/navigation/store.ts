@@ -8,7 +8,7 @@ type Actions = {
   toggleDrawer: (state: boolean) => void
 }
 
-export const useNavigationReducer = create<State & Actions>((set) => ({
+export const useNavigationStore = create<State & Actions>((set) => ({
   isDrawerOpen: false,
   toggleDrawer: (state) => set(() => ({ isDrawerOpen: state })),
 }))

@@ -2,10 +2,6 @@ import { SxProps } from '@mui/material'
 
 import { Color } from './_types'
 
-export const calc = (...values: string[]) => {
-  return `calc(${values.join(' + ')})`
-}
-
 export const msxs = (...sxs: Array<SxProps | undefined>): SxProps => {
   return sxs.reduce<SxProps>((acc, sx) => ({ ...acc, ...sx }), {})
 }

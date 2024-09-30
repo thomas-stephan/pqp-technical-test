@@ -1,8 +1,8 @@
 import { APP_PADDINGS } from '../../../theme/constants'
-import { calc, makeSx } from '../../../theme/utils'
+import { makeSx } from '../../../theme/utils'
 import { HEADER_HEIGHT } from '../../navigation/header/_sxs'
 
-const paddingTop = calc(HEADER_HEIGHT, '1rem')
+const paddingTop = `calc(${HEADER_HEIGHT} + 1rem)`
 
 export const sxs = makeSx({
   pageLayout: {
