@@ -8,18 +8,18 @@ import PageLayoutContent from '../components/wrappers/pageLayout/PageLayoutConte
 import PageWrapper from '../components/wrappers/pageWapper/PageWrapper'
 import { updatePageAttributes } from '../utils/page'
 
-const HomePage: React.FC = () => {
+const MoviesPage: React.FC = () => {
   const { isSearchActive } = useSearchStore()
 
   React.useEffect(() => {
     updatePageAttributes({
-      title: 'Accueil',
+      title: 'Films',
     })
   }, [])
 
   return (
     <PageWrapper>
-      <PageLayout>
+      <PageLayout goBackTo="/">
         <MovieSearch />
         {!isSearchActive && (
           <PageLayoutContent>
@@ -32,4 +32,4 @@ const HomePage: React.FC = () => {
   )
 }
 
-export default HomePage
+export default MoviesPage

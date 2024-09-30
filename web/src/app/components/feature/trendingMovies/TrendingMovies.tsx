@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useFetchTrendingMovies } from '../../../api/queries/fetchTrendingMovies'
+import useIsDesktop from '../../../hooks/useIsDesktop'
 import { TimeWindow } from '../../../types/common'
 import { ucfirst } from '../../../utils/strings'
 import CardListSkeleton from '../../common/cardListSkeleton/CardListSkeleton'
@@ -11,6 +12,7 @@ import { TrendingMoviesProps } from './_props'
 
 const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
   const { t } = useTranslation()
+  const { isDesktop } = useIsDesktop()
   const { data, isLoading, error } = useFetchTrendingMovies({
     variables: {
       page: 1,
@@ -26,7 +28,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
   const movies = data?.data.results ?? undefined
 
   if (isLoading) {
-    return <CardListSkeleton />
+    return <CardListSkeleton skeletonsCount={isDesktop ? 5 : 2} />
   }
 
   if (!movies) {

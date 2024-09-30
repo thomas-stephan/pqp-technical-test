@@ -25,17 +25,14 @@ const MovieInfosCast: React.FC<MovieInfosCastProps> = ({ movieId }) => {
     return <CardListSkeleton skeletonsHeight="16rem" />
   }
 
+  if (error) {
+    console.error({ error })
+  }
+
   if (error || !cast) {
     return <Typography>error</Typography>
   }
   const limitedCast = cast.slice(0, 10)
-
-  console.log({
-    data,
-    limitedCast,
-    isLoading,
-    error,
-  })
 
   return (
     <MovieInfosSection title={t('movies.cast')}>

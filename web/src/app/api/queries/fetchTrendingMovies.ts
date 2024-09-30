@@ -14,7 +14,7 @@ export const fetchTrendingMovies = async ({
   timeWindow,
 }: fetchTrendingMovieParams) => {
   const res = await requester.get<TrendingResponse>(
-    `/trending/movie/${timeWindow}?language=en-US&page=${page}&${language}`,
+    `/trending/movie/${timeWindow}?${language}&page=${page}`,
   )
   return res
 }

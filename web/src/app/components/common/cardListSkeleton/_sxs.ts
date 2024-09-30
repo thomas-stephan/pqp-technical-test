@@ -8,10 +8,7 @@ export const sxs = makeSx({
   cardListSkeleton: {
     width: '100%',
   },
-  cardListSkeletonContent: {
-    overflowX: 'auto',
-    paddingBottom: '1rem',
-  },
+  cardListSkeletonContent: {},
   cardListSkeletonItem: {
     width: {
       xs: `calc(50% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 2)})`,
@@ -20,6 +17,7 @@ export const sxs = makeSx({
     },
     height: '20rem',
     transform: 'scale(1)',
+    flexShrink: 0,
   },
   title: {
     width: '60%',

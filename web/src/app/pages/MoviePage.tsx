@@ -1,4 +1,3 @@
-import { Stack } from '@mui/material'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -8,7 +7,9 @@ import MovieInfosCast from '../components/feature/movieInfos/movieInfosCast/Movi
 import MovieInfosCover from '../components/feature/movieInfos/movieInfosCover/MovieInfosCover'
 import MovieInfosMainContent from '../components/feature/movieInfos/movieInfosMainContent/MovieInfosMainContent'
 import PageLayout from '../components/wrappers/pageLayout/PageLayout'
+import PageLayoutContent from '../components/wrappers/pageLayout/PageLayoutContent'
 import PageWrapper from '../components/wrappers/pageWapper/PageWrapper'
+import { updatePageAttributes } from '../utils/page'
 import NotFoundPage from './NotFoundPage'
 
 const HomePage: React.FC = () => {
@@ -24,27 +25,45 @@ const HomePage: React.FC = () => {
     skip: skiped,
   })
 
+  const movie = data?.data
+
+  React.useEffect(() => {
+    updatePageAttributes({
+      title: movie?.title,
+      description: movie?.overview,
+    })
+  }, [movie])
+
   if (error) {
     console.error({
       error,
     })
   }
 
-  const movie = data?.data
+  if (isLoading) {
+    return (
+      <PageWrapper>
+        <PageLayout scrollSensitive goBackTo="/movies">
+          <MovieInfosCover title={''} />
+          <AppLoader />
+        </PageLayout>
+      </PageWrapper>
+    )
+  }
 
-  if ((!isLoading && !movie) || !movie?.title || error) return <NotFoundPage />
+  if (!movie || !movie?.title || error) return <NotFoundPage />
 
   return (
     <PageWrapper>
-      <PageLayout scrollSensitive>
+      <PageLayout scrollSensitive goBackTo="/movies">
         <MovieInfosCover title={movie?.title} coverUrl={movie.poster_path} />
         {isLoading ? (
           <AppLoader />
         ) : (
-          <Stack gap="2rem" paddingTop="3rem">
+          <PageLayoutContent goBackTo="/movies">
             <MovieInfosMainContent description={movie.overview} />
             <MovieInfosCast movieId={movieId} />
-          </Stack>
+          </PageLayoutContent>
         )}
       </PageLayout>
     </PageWrapper>

@@ -1,7 +1,11 @@
 {
   "global": {
     "home": "home",
-    "search": "rechercher"
+    "search": "rechercher",
+    "enable_pagination": "activer la pagination",
+    "disable_pagination": "desactiver la pagination",
+    "go_back": "retour",
+    "load_more": "charger plus"
   },
   "movies": {
     "trending_this_week": "Populaire cette semaine",

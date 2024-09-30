@@ -8,7 +8,7 @@ type fetchMovieParams = {
 }
 
 export const fetchMovie = async ({ movieId }: fetchMovieParams) => {
-  const res = await requester.get<MovieDetails>(`/movie/${movieId}&${language}`)
+  const res = await requester.get<MovieDetails>(`/movie/${movieId}?${language}`)
   return res
 }
 

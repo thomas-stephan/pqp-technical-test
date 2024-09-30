@@ -10,7 +10,7 @@ const NotFoundPage: React.FC = () => {
   const { t } = useTranslation()
   return (
     <PageWrapper>
-      <PageLayout>
+      <PageLayout goBackTo="/">
         <Typography>{ucfirst(t('errors.error_404'))}</Typography>
       </PageLayout>
     </PageWrapper>

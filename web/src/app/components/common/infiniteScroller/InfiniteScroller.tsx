@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 import { InfiniteScrollerProps } from './_types'
@@ -8,34 +8,16 @@ const InfiniteScroller: React.FC<InfiniteScrollerProps> = ({
   onLoadMore,
   children,
 }) => {
-  //   const containerRef = useRef<HTMLDivElement | null>(null)
-
-  //   const handleScroll = useCallback(() => {
-  //     if (loading) return
-
-  //     if (
-  //       window.innerHeight + window.scrollY >=
-  //       document.documentElement.scrollHeight
-  //     ) {
-  //       onLoadMore()
-  //     }
-  //   }, [loading, onLoadMore])
-
-  //   useEffect(() => {
-  //     window.addEventListener('scroll', handleScroll)
-  //     return () => {
-  //       window.removeEventListener('scroll', handleScroll)
-  //     }
-  //   }, [handleScroll])
-
   const observerRef = useRef<IntersectionObserver | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
 
   const handleIntersection: IntersectionObserverCallback = useCallback(
     (entries) => {
-      const [entry] = entries
-      if (entry.isIntersecting && !loading && window.scrollY > 0) {
-        onLoadMore()
+      if (!loading) {
+        const [entry] = entries
+        if (entry.isIntersecting && window.scrollY > 0) {
+          onLoadMore()
+        }
       }
     },
     [loading, onLoadMore],
@@ -59,10 +41,15 @@ const InfiniteScroller: React.FC<InfiniteScrollerProps> = ({
   }, [handleIntersection])
 
   return (
-    <Box>
+    <Stack
+      justifyContent="flex-end"
+      sx={{
+        minHeight: '70dvh',
+      }}
+    >
       {children}
-      <Box ref={sentinelRef} />
-    </Box>
+      {!loading && <Box ref={sentinelRef} />}
+    </Stack>
   )
 }
 

@@ -1,90 +1,149 @@
-import { Box } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import { debounce } from 'lodash'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { useSearchMovies } from '../../../api/queries/searchMovies'
 import { MovieSearchResult } from '../../../api/types'
+import useIsDesktop from '../../../hooks/useIsDesktop'
+import { ucfirst } from '../../../utils/strings'
 import CardListSkeleton from '../../common/cardListSkeleton/CardListSkeleton'
 import SearchBar from '../../common/searchBar/SearchBar'
 import MovieSearchResults from './MovieSearchResults'
 import { useSearchStore } from './_store'
+import { MovieSearchResultsProps } from './_types'
 
 const MovieSearch: React.FC = () => {
-  const { setIsSearchActive, isSearchActive } = useSearchStore()
+  const { isDesktop } = useIsDesktop()
+  const { t } = useTranslation()
+  const { update, isSearchActive, isPaginationEnabed, pagination } =
+    useSearchStore()
   const [search, setSearch] = React.useState('')
-  const [page, setPage] = React.useState(1)
+  // const [currentPage, setCurrentPage] = React.useState(1)
   const [memoizedData, setMemoizedData] = React.useState<
     MovieSearchResult[] | undefined
   >(undefined)
 
-  const { data, isLoading, error, refetch } = useSearchMovies({
+  const currentPage = pagination?.activePage ?? 1
+
+  const updatePage = (page: number) => {
+    update({
+      pagination: {
+        activePage: !isPaginationEnabed ? currentPage + 1 : (page ?? 1),
+      },
+    })
+  }
+
+  const { data, isLoading, error } = useSearchMovies({
     variables: {
       name: search,
-      page: page,
+      page: currentPage,
     },
     skip: !search,
   })
 
   React.useEffect(() => {
-    if (data?.data.results) {
-      setMemoizedData([...(memoizedData ?? []), ...data.data.results])
+    return () => {
+      update({
+        isPaginationEnabed: false,
+        pagination: {
+          activePage: 1,
+          totalPages: 1,
+        },
+      })
     }
-  }, [data?.data.results])
+  }, [])
 
   React.useEffect(() => {
-    if ((memoizedData?.length ?? 0) > 0) {
-      setIsSearchActive(true)
-    } else {
-      setIsSearchActive(false)
+    if (data?.data.results && !isPaginationEnabed) {
+      setMemoizedData([...(memoizedData ?? []), ...data.data.results])
     }
+  }, [data?.data.results, isPaginationEnabed])
 
-    return () => {
-      setIsSearchActive(false)
+  React.useEffect(() => {
+    if (search) {
+      if (!isSearchActive) {
+        update({
+          isSearchActive: true,
+        })
+      }
+    } else {
+      update({
+        isSearchActive: false,
+      })
     }
-  }, [memoizedData])
+  }, [search])
 
   const handleSearchDebounced = React.useCallback(
     debounce((name: string) => {
       setMemoizedData(undefined)
-      setPage(1)
-
-      if (name === search) {
-        setMemoizedData(undefined)
-        setPage(1)
-        refetch()
-      } else {
-        setSearch(name)
-      }
+      setSearch(name)
     }, 250),
     [search],
   )
 
-  const handleInfiniteScroll = () => {
-    setPage(page + 1)
-  }
-  return (
-    <Box>
-      <SearchBar
-        onSearch={(e) => {
-          handleSearchDebounced(e)
-        }}
-      />
+  const displayLoading = isPaginationEnabed
+    ? isLoading
+    : currentPage === 1 && isLoading
 
-      {page === 1 && isLoading ? (
-        <CardListSkeleton />
+  const handleLoadMore: MovieSearchResultsProps['onLoadMore'] = (page) => {
+    if (!displayLoading) {
+      updatePage(page ?? currentPage + 1)
+    }
+  }
+
+  const handlePaginationState = () => {
+    update({
+      isPaginationEnabed: !isPaginationEnabed,
+      pagination: {
+        activePage: currentPage,
+        totalPages: data?.data.total_pages,
+      },
+    })
+  }
+
+  const currentData = isPaginationEnabed ? data?.data.results : memoizedData
+
+  return (
+    <Stack gap={'2rem'}>
+      <Stack gap=".6rem">
+        <SearchBar
+          onSearch={(e) => {
+            handleSearchDebounced(e)
+          }}
+        />
+        <Stack direction="row" justifyContent="flex-end">
+          {isSearchActive && (
+            <Button
+              color={isPaginationEnabed ? 'error' : 'inherit'}
+              variant="text"
+              onClick={handlePaginationState}
+            >
+              {ucfirst(
+                isPaginationEnabed
+                  ? t('global.disable_pagination')
+                  : t('global.enable_pagination'),
+              )}
+            </Button>
+          )}
+        </Stack>
+      </Stack>
+
+      {displayLoading ? (
+        <CardListSkeleton skeletonsCount={isDesktop ? 12 : 6} />
       ) : (
         isSearchActive &&
-        memoizedData && (
+        currentData && (
           <MovieSearchResults
-            data={memoizedData}
+            data={currentData}
             loading={isLoading}
-            onLoadMore={handleInfiniteScroll}
+            onLoadMore={handleLoadMore}
             search={search}
             error={error}
           />
         )
       )}
-    </Box>
+    </Stack>
   )
 }
 

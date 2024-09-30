@@ -22,4 +22,7 @@ export const sxs = makeSx({
       border: 'none',
     },
   },
+  searchBarInputClear: {
+    flexShrink: 0,
+  },
 })

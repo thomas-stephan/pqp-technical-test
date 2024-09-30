@@ -7,22 +7,27 @@ import { sxs } from './_sxs'
 
 const CardListSkeleton: React.FC<CardListSkeletonProps> = ({
   skeletonsHeight,
+  skeletonsCount = 2,
+  title = true,
 }) => {
-  const ghosts = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-  ]
+  const ghosts = React.useMemo(() => {
+    const res = []
+
+    for (let index = 0; index < skeletonsCount; index++) {
+      res.push({
+        id: index,
+      })
+    }
+
+    return res
+  }, [])
 
   return (
     <Stack sx={sxs.cardListSkeleton} gap=".4rem">
-      <Skeleton sx={sxs.title} variant="text" />
+      {title && <Skeleton sx={sxs.title} variant="text" />}
       <Stack
         direction="row"
-        flexWrap={'nowrap'}
+        flexWrap={'wrap'}
         gap={defaultCardListSpacing}
         sx={sxs.cardListSkeletonContent}
       >
