@@ -1,0 +1,11 @@
+{
+  "global": {
+    "home": "home",
+    "search": "rechercher"
+  },
+  "errors": {
+    "an_error_occured": "an error occured",
+    "error_404": "not found",
+    "error_unknown": "unknown found"
+  }
+}
