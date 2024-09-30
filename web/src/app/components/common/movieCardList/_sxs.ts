@@ -10,3 +10,9 @@ export const sxs = makeSx({
     overflowX: 'auto',
   },
 })
+
+export const MovieCardListLoaderSxs = makeSx({
+  title: {
+    width: '60%',
+  },
+})

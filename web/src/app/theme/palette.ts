@@ -18,6 +18,7 @@ const palette = makePalette({
     300: '#fafafa',
     400: '#fcfcfe',
     500: '#F1F7F9',
+    550: '#d6dddf',
     600: '#666671',
     700: '#3e3e4a',
     800: '#272730',

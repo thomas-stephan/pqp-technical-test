@@ -6,6 +6,7 @@ import { useFetchTrendingMovies } from '../../../api/queries/fetchTrendingMovies
 import { TimeWindow } from '../../../types/common'
 import { ucfirst } from '../../../utils/strings'
 import MovieCardList from '../../common/movieCardList/MovieCardList'
+import MovieCardListLoader from '../../common/movieCardList/MovieCardListLoader'
 import { TrendingMoviesProps } from './_props'
 
 const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
@@ -25,7 +26,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
   const movies = data?.data.results ?? undefined
 
   if (isLoading) {
-    return <Typography>loading</Typography>
+    return <MovieCardListLoader />
   }
 
   if (!movies) {

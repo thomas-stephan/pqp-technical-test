@@ -12,6 +12,13 @@ export const sxs = makeSx({
   },
   movieCardContent: {},
 })
+export const MovieCardSkeletonSxs = makeSx({
+  skeleton: {
+    height: {
+      xs: '20rem',
+    },
+  },
+})
 
 export const movieCardContentDisplayProps: StackProps = {
   direction: {

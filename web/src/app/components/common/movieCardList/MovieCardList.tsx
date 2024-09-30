@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
+import { ucfirst } from '../../../utils/strings'
 import MovieCard from '../movieCard/MovieCard'
 import { MovieCardListProps } from './_props'
 import { movieCardListSpacing, sxs } from './_sxs'
@@ -12,7 +13,7 @@ const MovieCardList: React.FC<MovieCardListProps> = ({
 }) => {
   return (
     <Stack sx={sxs.MovieCardList} gap=".4rem">
-      {title && <Typography fontSize="1.2rem">{title}</Typography>}
+      {title && <Typography fontSize="1.2rem">{ucfirst(title)}</Typography>}
       <Stack
         direction="row"
         flexWrap={wrapped ? 'wrap' : 'nowrap'}
@@ -31,7 +32,6 @@ const MovieCardList: React.FC<MovieCardListProps> = ({
           )
         })}
       </Stack>
-      {/* HERE */}
     </Stack>
   )
 }

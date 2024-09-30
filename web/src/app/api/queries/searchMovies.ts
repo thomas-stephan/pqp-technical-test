@@ -11,9 +11,10 @@ type SearchMovieParams = {
 export const searchMovies = async ({ name, page }: SearchMovieParams) => {
   const computedName = name.replaceAll(' ', '+')
 
-  const res = await requester.get<MovieSearchResponse>(
-    `/search/movie?limit=${100}&query=${computedName}&page=${page}`,
-  )
+  const route = `/search/movie?limit=${100}&query=${computedName}&page=${page}`
+
+  const res = await requester.get<MovieSearchResponse>(route)
+
   return res
 }
 

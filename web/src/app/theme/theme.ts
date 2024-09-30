@@ -37,6 +37,24 @@ const theme = createTheme({
         },
       },
     },
+    MuiSkeleton: {
+      variants: [
+        {
+          props: {
+            variant: 'text',
+          },
+          style: {
+            height: '2rem',
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          borderRadius: '.7rem',
+          background: palette.surface[550],
+        },
+      },
+    },
   },
 })
 

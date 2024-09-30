@@ -4,6 +4,7 @@ import React from 'react'
 
 import { useSearchMovies } from '../../../api/queries/searchMovies'
 import { MovieSearchResult } from '../../../api/types'
+import MovieCardListLoader from '../../common/movieCardList/MovieCardListLoader'
 import SearchBar from '../../common/searchBar/SearchBar'
 import MovieSearchResults from './MovieSearchResults'
 import { useSearchStore } from './_store'
@@ -22,12 +23,6 @@ const MovieSearch: React.FC = () => {
       page: page,
     },
     skip: !search,
-  })
-
-  console.log({
-    data,
-    isLoading,
-    error,
   })
 
   React.useEffect(() => {
@@ -50,11 +45,6 @@ const MovieSearch: React.FC = () => {
 
   const handleSearchDebounced = React.useCallback(
     debounce((name: string) => {
-      console.log({
-        name,
-        search,
-      })
-
       setMemoizedData(undefined)
       setPage(1)
 
@@ -65,7 +55,7 @@ const MovieSearch: React.FC = () => {
       } else {
         setSearch(name)
       }
-    }, 1000),
+    }, 250),
     [search],
   )
 
@@ -79,12 +69,20 @@ const MovieSearch: React.FC = () => {
           handleSearchDebounced(e)
         }}
       />
-      {isSearchActive && memoizedData && (
-        <MovieSearchResults
-          data={memoizedData}
-          loading={isLoading}
-          onLoadMore={handleInfiniteScroll}
-        />
+
+      {isLoading ? (
+        <MovieCardListLoader />
+      ) : (
+        isSearchActive &&
+        memoizedData && (
+          <MovieSearchResults
+            data={memoizedData}
+            loading={isLoading}
+            onLoadMore={handleInfiniteScroll}
+            search={search}
+            error={error}
+          />
+        )
       )}
     </Box>
   )
