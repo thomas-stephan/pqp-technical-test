@@ -4,6 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { getApiImageUrl } from '../../../api/api'
 import useIsDesktop from '../../../hooks/useIsDesktop'
 import { ucfirst } from '../../../utils/strings'
 import './_css.css'
@@ -13,21 +14,17 @@ import { MovieCardProps } from './_types'
 const MovieCard: React.FC<MovieCardProps> = ({
   title,
   coverUrl,
+  id,
   expandsOnHover = false,
 }) => {
   const { t } = useTranslation()
   const { isDesktop } = useIsDesktop()
 
-  const getPosterUrl = React.useCallback(
-    (posterPath: string) => `https://image.tmdb.org/t/p/w500${posterPath}`,
-    [],
-  )
-
   return (
     <Stack
       className="movie-card"
       component={Link}
-      to="#"
+      to={`/movies/${id}`}
       sx={[
         sxs.movieCard,
         isDesktop && sxs.movieCardDesktop,
@@ -38,7 +35,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
       <Box
         className="movie-card-cover"
         sx={{
-          background: coverUrl ? `url(${getPosterUrl(coverUrl)})` : undefined,
+          background: coverUrl ? `url(${getApiImageUrl(coverUrl)})` : undefined,
         }}
       />
       <Stack

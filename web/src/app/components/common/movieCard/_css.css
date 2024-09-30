@@ -1,5 +1,7 @@
+@import url('../../../../assets/css/tailwind/cards.css');
+
 .movie-card-cover {
-  @apply bg-surface-500 h-80 overflow-hidden rounded bg-cover bg-center bg-no-repeat;
+  @apply card-cover h-80;
 }
 
 .movie-card {

@@ -37,6 +37,34 @@ const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      variants: [
+        {
+          props: {
+            variant: 'h1',
+          },
+          style: ({ theme }) => ({
+            fontSize: '1.75rem',
+            fontWeight: 800,
+            [theme.breakpoints.up('md')]: {
+              fontSize: '2rem',
+            },
+          }),
+        },
+        {
+          props: {
+            variant: 'h2',
+          },
+          style: ({ theme }) => ({
+            fontSize: '1.4rem',
+            fontWeight: 800,
+            [theme.breakpoints.up('md')]: {
+              fontSize: '1.6rem',
+            },
+          }),
+        },
+      ],
+    },
     MuiSkeleton: {
       variants: [
         {

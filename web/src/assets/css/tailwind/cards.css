@@ -1,0 +1,3 @@
+.card-cover {
+  @apply bg-surface-500 overflow-hidden rounded bg-cover bg-center bg-no-repeat;
+}

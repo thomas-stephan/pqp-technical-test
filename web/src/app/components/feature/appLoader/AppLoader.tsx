@@ -1,20 +1,21 @@
-import { Box, CircularProgress, Stack } from '@mui/material'
+import { CircularProgress, Stack } from '@mui/material'
 import React from 'react'
 
-const AppLoader: React.FC = () => {
+import { AppLoaderProps } from './_props'
+
+const AppLoader: React.FC<AppLoaderProps> = ({ fullscreen }) => {
   return (
-    <Box>
-      <Stack
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          height: '100dvh',
-          width: '100dvw',
-        }}
-      >
-        <CircularProgress />
-      </Stack>
-    </Box>
+    <Stack
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        height: fullscreen ? '100dvh' : '100%',
+        width: fullscreen ? '100dvw' : '100%',
+        minHeight: '40dvh',
+      }}
+    >
+      <CircularProgress />
+    </Stack>
   )
 }
 

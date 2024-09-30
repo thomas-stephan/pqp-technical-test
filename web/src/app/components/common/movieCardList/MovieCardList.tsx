@@ -1,10 +1,11 @@
 import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
+import { defaultCardListSpacing } from '../../../theme/utils'
 import { ucfirst } from '../../../utils/strings'
 import MovieCard from '../movieCard/MovieCard'
 import { MovieCardListProps } from './_props'
-import { movieCardListSpacing, sxs } from './_sxs'
+import { sxs } from './_sxs'
 
 const MovieCardList: React.FC<MovieCardListProps> = ({
   movies,
@@ -18,7 +19,7 @@ const MovieCardList: React.FC<MovieCardListProps> = ({
       <Stack
         direction="row"
         flexWrap={wrapped ? 'wrap' : 'nowrap'}
-        gap={movieCardListSpacing}
+        gap={defaultCardListSpacing}
         sx={sxs.MovieCardListContent}
       >
         {movies.map((movie) => {

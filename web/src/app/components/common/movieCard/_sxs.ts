@@ -1,18 +1,19 @@
 import { StackProps } from '@mui/material'
 
 import palette from '../../../theme/palette'
-import { hexToRgba, makeSx } from '../../../theme/utils'
-import { movieCardListSpacing } from '../movieCardList/_sxs'
-
-const getGapCorrection = (amount: number) =>
-  parseFloat(movieCardListSpacing) / amount
+import {
+  defaultCardListSpacing,
+  getGapCorrection,
+  hexToRgba,
+  makeSx,
+} from '../../../theme/utils'
 
 export const sxs = makeSx({
   movieCard: {
     width: {
-      xs: `calc(50% - ${getGapCorrection(2)}rem)`,
-      md: `calc(33% - ${getGapCorrection(1.2)}rem)`,
-      lg: `calc(20% - ${getGapCorrection(1.2)}rem)`,
+      xs: `calc(50% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 2)})`,
+      md: `calc(33% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
+      lg: `calc(20% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
     },
     '&:hover .movie-card-content': {
       opacity: 1,
@@ -47,8 +48,8 @@ export const sxs = makeSx({
     },
     '&:hover': {
       width: {
-        md: `calc(45% - (${movieCardListSpacing} / 2))`,
-        lg: `calc(45% - (${movieCardListSpacing} / 2))`,
+        md: `calc(45% - (${defaultCardListSpacing} / 2))`,
+        lg: `calc(45% - (${defaultCardListSpacing} / 2))`,
       },
     },
   },
@@ -71,7 +72,7 @@ export const sxs = makeSx({
       md: 'translateY(4.5rem)',
     },
     transition: {
-      md: 'transform .115s ease-in-out, opacity .115s ease-in-out',
+      md: 'transform .115s ease-in-out, opacity .115s ease-in-out, background .12s ease-in',
     },
     transitionDelay: {
       md: '.26s',
@@ -79,6 +80,10 @@ export const sxs = makeSx({
     opacity: {
       md: 0,
     },
+    color: {
+      md: palette.white[500],
+    },
+    background: hexToRgba(palette.surface[600], 0.6),
   },
   movieCardDetailTitle: {
     transform: {

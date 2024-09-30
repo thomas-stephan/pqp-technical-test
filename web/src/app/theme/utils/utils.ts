@@ -15,3 +15,8 @@ export const makePalette = <T extends Record<string, Partial<Color>>>(
 ): T => {
   return styles
 }
+
+export const getGapCorrection = (gap: number, amount = 1) =>
+  `${gap / amount}rem`
+
+export const defaultCardListSpacing = '1rem'

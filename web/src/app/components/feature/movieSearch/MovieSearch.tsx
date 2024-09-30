@@ -4,7 +4,7 @@ import React from 'react'
 
 import { useSearchMovies } from '../../../api/queries/searchMovies'
 import { MovieSearchResult } from '../../../api/types'
-import MovieCardListLoader from '../../common/movieCardList/MovieCardListLoader'
+import CardListSkeleton from '../../common/cardListSkeleton/CardListSkeleton'
 import SearchBar from '../../common/searchBar/SearchBar'
 import MovieSearchResults from './MovieSearchResults'
 import { useSearchStore } from './_store'
@@ -71,7 +71,7 @@ const MovieSearch: React.FC = () => {
       />
 
       {page === 1 && isLoading ? (
-        <MovieCardListLoader />
+        <CardListSkeleton />
       ) : (
         isSearchActive &&
         memoizedData && (

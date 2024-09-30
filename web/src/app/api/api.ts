@@ -2,6 +2,8 @@ import axios from 'axios'
 import axiosRateLimit from 'axios-rate-limit'
 import { QueryClient } from 'react-query'
 
+export const language = 'language=fr'
+
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   withCredentials: true,
@@ -16,3 +18,6 @@ export const requester = axiosRateLimit(instance, {
 })
 
 export const queryClient = new QueryClient()
+
+export const getApiImageUrl = (imagePath: string, size = 'w780') =>
+  `https://image.tmdb.org/t/p/${size}${imagePath}`

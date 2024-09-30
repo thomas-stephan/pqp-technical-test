@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useFetchTrendingMovies } from '../../../api/queries/fetchTrendingMovies'
 import { TimeWindow } from '../../../types/common'
 import { ucfirst } from '../../../utils/strings'
+import CardListSkeleton from '../../common/cardListSkeleton/CardListSkeleton'
 import MovieCardList from '../../common/movieCardList/MovieCardList'
-import MovieCardListLoader from '../../common/movieCardList/MovieCardListLoader'
 import { TrendingMoviesProps } from './_props'
 
 const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
@@ -26,7 +26,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
   const movies = data?.data.results ?? undefined
 
   if (isLoading) {
-    return <MovieCardListLoader />
+    return <CardListSkeleton />
   }
 
   if (!movies) {

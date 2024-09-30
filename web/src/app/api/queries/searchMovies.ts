@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { requester } from '../api'
+import { language, requester } from '../api'
 import { MovieSearchResponse, UseQueryParams } from '../types'
 
 type SearchMovieParams = {
@@ -11,7 +11,7 @@ type SearchMovieParams = {
 export const searchMovies = async ({ name, page }: SearchMovieParams) => {
   const computedName = name.replaceAll(' ', '+')
 
-  const route = `/search/movie?limit=${100}&query=${computedName}&page=${page}`
+  const route = `/search/movie?limit=${100}&query=${computedName}&page=${page}&${language}`
 
   const res = await requester.get<MovieSearchResponse>(route)
 

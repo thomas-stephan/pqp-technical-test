@@ -11,6 +11,7 @@ const palette = makePalette({
     600: '#4a28c7',
   },
   typography: {
+    400: '#343234',
     500: '#191819',
   },
   surface: {

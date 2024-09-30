@@ -1,6 +1,6 @@
 import { APP_PADDINGS } from '../../../theme/constants'
 import palette from '../../../theme/palette'
-import { makeSx } from '../../../theme/utils'
+import { hexToRgba, makeSx } from '../../../theme/utils'
 
 export const HEADER_HEIGHT = '4rem'
 
@@ -11,13 +11,17 @@ export const sxs = makeSx({
     left: 0,
     right: 0,
     height: HEADER_HEIGHT,
-    background: palette.white[500],
+    background: 'transparent',
     zIndex: 300,
     padding: {
       xs: `.5rem ${APP_PADDINGS.x.xs}`,
       md: `.5rem ${APP_PADDINGS.x.md}`,
     },
-    borderBottom: `1px solid ${palette.surface[500]}`,
+    borderBottom: `1px solid ${hexToRgba(palette.surface[500], 0.5)}`,
+    transition: 'background .12s ease-in',
+  },
+  headerScrolled: {
+    background: palette.white[500],
   },
   button: {
     padding: 0,

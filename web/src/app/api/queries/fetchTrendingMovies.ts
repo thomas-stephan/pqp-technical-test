@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 import { TimeWindow } from '../../types/common'
-import { requester } from '../api'
+import { language, requester } from '../api'
 import { TrendingResponse, UseQueryParams } from '../types'
 
 type fetchTrendingMovieParams = {
@@ -14,7 +14,7 @@ export const fetchTrendingMovies = async ({
   timeWindow,
 }: fetchTrendingMovieParams) => {
   const res = await requester.get<TrendingResponse>(
-    `/trending/movie/${timeWindow}?language=en-US&page=${page}`,
+    `/trending/movie/${timeWindow}?language=en-US&page=${page}&${language}`,
   )
   return res
 }

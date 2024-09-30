@@ -7,7 +7,9 @@
     "trending_this_week": "Populaire cette semaine",
     "trending_today": "Populaire aujourd'hui",
     "see_details": "Voir les details",
-    "result_for_search": "resultat(s) pour \"{{search}}\""
+    "result_for_search": "resultat(s) pour \"{{search}}\"",
+    "description": "description",
+    "cast": "distribution"
   },
   "errors": {
     "an_error_occured": "an error occured",

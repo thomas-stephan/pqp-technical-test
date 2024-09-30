@@ -16,7 +16,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <CssBaseline />
-          <Suspense fallback={<AppLoader />}>
+          <Suspense fallback={<AppLoader fullscreen />}>
             <MainRouter />
           </Suspense>
         </QueryClientProvider>

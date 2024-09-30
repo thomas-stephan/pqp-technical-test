@@ -10,6 +10,9 @@ const NotFoundPage = lazy(async () => {
 const HomePage = lazy(async () => {
   return await import('../pages/HomePage')
 })
+const MoviePage = lazy(async () => {
+  return await import('../pages/MoviePage')
+})
 
 const DefaultRouter = createBrowserRouter([
   {
@@ -20,6 +23,10 @@ const DefaultRouter = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/movies/:id',
+        element: <MoviePage />,
       },
     ],
   },

@@ -16,8 +16,8 @@ export const sxs = makeSx({
       md: '75rem',
     },
     padding: {
-      xs: `${paddingTop} ${APP_PADDINGS.x.xs} 0`,
-      md: `${paddingTop} ${APP_PADDINGS.x.md} 0`,
+      xs: `${paddingTop} ${APP_PADDINGS.x.xs} 5rem`,
+      md: `${paddingTop} ${APP_PADDINGS.x.md} 5rem`,
     },
     margin: {
       md: '0 auto',
