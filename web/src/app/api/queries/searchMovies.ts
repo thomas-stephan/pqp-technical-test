@@ -26,5 +26,6 @@ export const useSearchMovies = (params: UseQueryParams<SearchMovieParams>) =>
     },
     {
       enabled: !params.skip,
+      refetchOnWindowFocus: false,
     },
   )

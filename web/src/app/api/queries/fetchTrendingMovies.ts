@@ -29,5 +29,6 @@ export const useFetchTrendingMovies = (
     },
     {
       enabled: !params.skip,
+      refetchOnWindowFocus: false,
     },
   )

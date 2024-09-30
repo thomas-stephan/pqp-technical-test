@@ -70,7 +70,7 @@ const MovieSearch: React.FC = () => {
         }}
       />
 
-      {isLoading ? (
+      {page === 1 && isLoading ? (
         <MovieCardListLoader />
       ) : (
         isSearchActive &&

@@ -10,6 +10,7 @@ const MovieCardList: React.FC<MovieCardListProps> = ({
   movies,
   title,
   wrapped = false,
+  expandsOnHover = false,
 }) => {
   return (
     <Stack sx={sxs.MovieCardList} gap=".4rem">
@@ -28,6 +29,7 @@ const MovieCardList: React.FC<MovieCardListProps> = ({
               title={movie.title}
               id={movie.id}
               coverUrl={movie.backdrop_path}
+              expandsOnHover={expandsOnHover}
             />
           )
         })}

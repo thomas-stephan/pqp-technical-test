@@ -8,6 +8,7 @@ export const sxs = makeSx({
   },
   MovieCardListContent: {
     overflowX: 'auto',
+    paddingBottom: '1rem',
   },
 })
 

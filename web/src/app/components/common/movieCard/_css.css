@@ -1,11 +1,11 @@
 .movie-card-cover {
-  @apply bg-surface-500 h-80 rounded bg-cover bg-center bg-no-repeat;
+  @apply bg-surface-500 h-80 overflow-hidden rounded bg-cover bg-center bg-no-repeat;
 }
 
 .movie-card {
-  @apply relative shrink-0 rounded;
+  @apply relative shrink-0 overflow-hidden rounded;
 }
 
 .movie-card-content {
-  @apply px-2 md:px-4;
+  @apply px-2 md:absolute md:bottom-0 md:left-0 md:right-0 md:px-4 md:py-4;
 }

@@ -41,7 +41,11 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ timeWindow }) => {
   }
 
   return (
-    <MovieCardList title={ucfirst(listTitle[timeWindow])} movies={movies} />
+    <MovieCardList
+      title={ucfirst(listTitle[timeWindow])}
+      movies={movies}
+      expandsOnHover
+    />
   )
 }
 

@@ -10,7 +10,11 @@ import './_css.css'
 import { movieCardContentDisplayProps, sxs } from './_sxs'
 import { MovieCardProps } from './_types'
 
-const MovieCard: React.FC<MovieCardProps> = ({ title, coverUrl }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+  title,
+  coverUrl,
+  expandsOnHover = false,
+}) => {
   const { t } = useTranslation()
   const { isDesktop } = useIsDesktop()
 
@@ -24,7 +28,11 @@ const MovieCard: React.FC<MovieCardProps> = ({ title, coverUrl }) => {
       className="movie-card"
       component={Link}
       to="#"
-      sx={sxs.movieCard}
+      sx={[
+        sxs.movieCard,
+        isDesktop && sxs.movieCardDesktop,
+        expandsOnHover && isDesktop && sxs.movieCardExpandsOnHover,
+      ]}
       gap=".4rem"
     >
       <Box
@@ -33,17 +41,25 @@ const MovieCard: React.FC<MovieCardProps> = ({ title, coverUrl }) => {
           background: coverUrl ? `url(${getPosterUrl(coverUrl)})` : undefined,
         }}
       />
-      <Stack {...movieCardContentDisplayProps} className="movie-card-content">
+      <Stack
+        {...movieCardContentDisplayProps}
+        className="movie-card-content"
+        sx={sxs.movieCardContent}
+      >
         <Typography
-          fontSize={{
-            xs: '.9rem',
-            md: '1rem',
-          }}
+          className="movie-card-content-title"
+          sx={sxs.movieCardDetailTitle}
         >
           {title}
         </Typography>
         {isDesktop ? (
-          <Button color="inherit">{ucfirst(t('movies.see_details'))}</Button>
+          <Button
+            className="movie-card-content-details-button"
+            sx={sxs.movieCardDetailButton}
+            color="inherit"
+          >
+            {ucfirst(t('movies.see_details'))}
+          </Button>
         ) : (
           <IconButton>
             <KeyboardArrowRightRoundedIcon />

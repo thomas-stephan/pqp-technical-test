@@ -14,7 +14,9 @@ const MovieSearchResults: React.FC<MovieSearchResultsProps> = ({
   search,
   error,
 }) => {
-  console.error({ error })
+  if (error) {
+    console.error({ error })
+  }
 
   const { t } = useTranslation()
 
