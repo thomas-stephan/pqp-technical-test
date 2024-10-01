@@ -9,17 +9,33 @@ import { ucfirst } from '../../../utils/strings'
 import { sxs } from './_sxs'
 import { SearchBarProps } from './_types'
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  placeholder,
+  onSearch,
+  active,
+}) => {
   const { t } = useTranslation()
 
   const [isFocused, setIsFocused] = React.useState(false)
   const [search, setSearch] = React.useState('')
+
+  const cancelSearch = () => {
+    onSearch('')
+    setSearch('')
+    setIsFocused(false)
+  }
 
   const computedPlaceholder = React.useMemo(() => {
     const base = ucfirst(placeholder ?? t('global.search'))
 
     return base.slice(-3) === '...' ? base : `${base}...`
   }, [])
+
+  React.useEffect(() => {
+    if (!active) {
+      cancelSearch()
+    }
+  }, [active])
 
   return (
     <Stack
@@ -42,14 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch }) => {
         value={search}
       />
       {search && (
-        <IconButton
-          sx={sxs.searchBarInputClear}
-          onClick={() => {
-            onSearch('')
-            setSearch('')
-            setIsFocused(false)
-          }}
-        >
+        <IconButton sx={sxs.searchBarInputClear} onClick={cancelSearch}>
           <CloseRoundedIcon />
         </IconButton>
       )}

@@ -2,18 +2,24 @@ import palette from '../../../../theme/palette'
 import { hexToRgba, makeSx } from '../../../../theme/utils'
 import { HEADER_HEIGHT } from '../../../navigation/header/_sxs'
 
+const height = {
+  xs: '22rem',
+  md: '55dvh',
+  lg: '65dvh',
+  xl: '75dvh',
+}
+
 export const sxs = makeSx({
   MovieInfosCover: {
-    height: {
-      xs: '22rem',
-      md: '32rem',
-    },
+    height,
     top: 0,
   },
   MovieInfosCoverSpacer: {
     height: {
-      xs: `calc(22rem - ${HEADER_HEIGHT})`,
-      md: `calc(32rem - ${HEADER_HEIGHT})`,
+      xs: `calc(${height.xs} - ${HEADER_HEIGHT})`,
+      md: `calc(${height.md} - ${HEADER_HEIGHT})`,
+      lg: `calc(${height.lg} - ${HEADER_HEIGHT})`,
+      xl: `calc(${height.xl} - ${HEADER_HEIGHT})`,
     },
   },
   MovieInfosCoverContent: {

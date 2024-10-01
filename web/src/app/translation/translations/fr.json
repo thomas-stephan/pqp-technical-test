@@ -7,6 +7,7 @@
     "go_back": "retour",
     "load_more": "charger plus",
     "end_of_results": "fin des resultats",
+    "cancel_search": "annuler la recherche",
     "page_of": "page {{activePage}} / {{totalPages}}"
   },
   "movies": {

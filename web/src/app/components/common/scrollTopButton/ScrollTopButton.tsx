@@ -1,9 +1,8 @@
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded'
-import { Button } from '@mui/material'
 import React from 'react'
 
 import useOnScrollActivation from '../../../hooks/useOnScrollActivation'
-import { sxs } from './_sxs'
+import FloatingButton from '../floatingButton/FloatingButton'
 
 const ScrollTopButton: React.FC = () => {
   const [isDisplayed, setIsDisplayed] = React.useState(false)
@@ -29,9 +28,15 @@ const ScrollTopButton: React.FC = () => {
   if (!isDisplayed) return null
 
   return (
-    <Button color="inherit" onClick={handleClick} sx={sxs.scrollTopButton}>
+    <FloatingButton
+      onClick={handleClick}
+      position={{
+        bottom: '1rem',
+        right: '1rem',
+      }}
+    >
       <KeyboardArrowUpRoundedIcon />
-    </Button>
+    </FloatingButton>
   )
 }
 

@@ -8,6 +8,7 @@ import { MovieSearchResult } from '../../../api/types'
 import useIsDesktop from '../../../hooks/useIsDesktop'
 import { ucfirst } from '../../../utils/strings'
 import CardListSkeleton from '../../common/cardListSkeleton/CardListSkeleton'
+import FloatingButton from '../../common/floatingButton/FloatingButton'
 import SearchBar from '../../common/searchBar/SearchBar'
 import MovieSearchResults from './MovieSearchResults'
 import { useSearchStore } from './_store'
@@ -116,6 +117,13 @@ const MovieSearch: React.FC = () => {
     })
   }
 
+  const cancelSearch = () => {
+    setSearch('')
+    update({
+      isSearchActive: false,
+    })
+  }
+
   const currentData = isPaginationEnabed ? data?.data.results : memoizedData
 
   return (
@@ -125,20 +133,29 @@ const MovieSearch: React.FC = () => {
           onSearch={(e) => {
             handleSearchDebounced(e)
           }}
+          active={isSearchActive}
         />
         <Stack direction="row" justifyContent="flex-end">
           {isSearchActive && !isLoading && (
-            <Button
-              color={isPaginationEnabed ? 'error' : 'inherit'}
-              variant="text"
-              onClick={handlePaginationState}
-            >
-              {ucfirst(
-                isPaginationEnabed
-                  ? t('global.disable_pagination')
-                  : t('global.enable_pagination'),
-              )}
-            </Button>
+            <>
+              <FloatingButton
+                onClick={handlePaginationState}
+                opacity={0.9}
+                position={{
+                  bottom: '1rem',
+                  left: '1rem',
+                }}
+              >
+                {ucfirst(
+                  isPaginationEnabed
+                    ? t('global.disable_pagination')
+                    : t('global.enable_pagination'),
+                )}
+              </FloatingButton>
+              <Button color={'error'} variant="text" onClick={cancelSearch}>
+                {ucfirst(t('global.cancel_search'))}
+              </Button>
+            </>
           )}
         </Stack>
       </Stack>
