@@ -3,6 +3,7 @@ import { Button, Stack } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import useOnScrollActivation from '../../../hooks/useOnScrollActivation'
 import palette from '../../../theme/palette'
 import Logo from '../../feature/logo/Logo'
 import { HeaderProps } from './_props'
@@ -13,30 +14,19 @@ const Header: React.FC<HeaderProps> = ({
   goBackTo,
 }) => {
   const [isHeaderScrolled, setIsHeaderScrolled] = React.useState(false)
+  useOnScrollActivation({
+    onReachOver: () => {
+      if (!isHeaderScrolled) {
+        setIsHeaderScrolled(true)
+      }
+    },
+    onReachUnder: () => {
+      setIsHeaderScrolled(false)
+    },
+    enabled: scrollSensitive,
+  })
 
   const active = isHeaderScrolled || !scrollSensitive
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        if (!isHeaderScrolled) {
-          setIsHeaderScrolled(true)
-        }
-      } else {
-        setIsHeaderScrolled(false)
-      }
-    }
-
-    if (scrollSensitive) {
-      window.addEventListener('scroll', handleScroll, true)
-    } else {
-      window.removeEventListener('scroll', handleScroll, true)
-    }
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll, true)
-    }
-  }, [scrollSensitive])
 
   return (
     <Stack

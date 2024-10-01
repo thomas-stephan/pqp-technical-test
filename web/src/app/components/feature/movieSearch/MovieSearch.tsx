@@ -18,8 +18,8 @@ const MovieSearch: React.FC = () => {
   const { t } = useTranslation()
   const { update, isSearchActive, isPaginationEnabed, pagination } =
     useSearchStore()
+
   const [search, setSearch] = React.useState('')
-  // const [currentPage, setCurrentPage] = React.useState(1)
   const [memoizedData, setMemoizedData] = React.useState<
     MovieSearchResult[] | undefined
   >(undefined)
@@ -48,17 +48,25 @@ const MovieSearch: React.FC = () => {
         isPaginationEnabed: false,
         pagination: {
           activePage: 1,
-          totalPages: 1,
+          totalPages: undefined,
         },
       })
     }
   }, [])
 
   React.useEffect(() => {
-    if (data?.data.results && !isPaginationEnabed) {
-      setMemoizedData([...(memoizedData ?? []), ...data.data.results])
+    if (!isPaginationEnabed) {
+      update({
+        pagination: {
+          totalPages: data?.data.total_pages,
+        },
+      })
+
+      if (data?.data.results) {
+        setMemoizedData([...(memoizedData ?? []), ...data.data.results])
+      }
     }
-  }, [data?.data.results, isPaginationEnabed])
+  }, [data?.data.results, data?.data.total_pages, isPaginationEnabed])
 
   React.useEffect(() => {
     if (search) {
@@ -89,6 +97,12 @@ const MovieSearch: React.FC = () => {
   const handleLoadMore: MovieSearchResultsProps['onLoadMore'] = (page) => {
     if (!displayLoading) {
       updatePage(page ?? currentPage + 1)
+      if (isPaginationEnabed) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
     }
   }
 
@@ -113,7 +127,7 @@ const MovieSearch: React.FC = () => {
           }}
         />
         <Stack direction="row" justifyContent="flex-end">
-          {isSearchActive && (
+          {isSearchActive && !isLoading && (
             <Button
               color={isPaginationEnabed ? 'error' : 'inherit'}
               variant="text"

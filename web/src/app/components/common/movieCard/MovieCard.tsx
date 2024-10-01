@@ -32,36 +32,46 @@ const MovieCard: React.FC<MovieCardProps> = ({
       ]}
       gap=".4rem"
     >
-      <Box
-        className="movie-card-cover"
-        sx={{
-          background: coverUrl ? `url(${getApiImageUrl(coverUrl)})` : undefined,
-        }}
-      />
-      <Stack
-        {...movieCardContentDisplayProps}
-        className="movie-card-content"
-        sx={sxs.movieCardContent}
-      >
-        <Typography
-          className="movie-card-content-title"
-          sx={sxs.movieCardDetailTitle}
+      <Stack className="relative overflow-hidden rounded">
+        <Box
+          className="movie-card-cover"
+          sx={[
+            sxs.movieCardCover,
+            {
+              background: coverUrl
+                ? `url(${getApiImageUrl(coverUrl)})`
+                : undefined,
+            },
+          ]}
+        />
+        <Stack
+          {...movieCardContentDisplayProps}
+          className="movie-card-content"
+          sx={sxs.movieCardContent}
         >
-          {title}
-        </Typography>
-        {isDesktop ? (
-          <Button
-            className="movie-card-content-details-button"
-            sx={sxs.movieCardDetailButton}
-            color="inherit"
+          <Typography
+            className="movie-card-content-title"
+            sx={sxs.movieCardDetailTitle}
           >
-            {ucfirst(t('movies.see_details'))}
-          </Button>
-        ) : (
-          <IconButton>
-            <KeyboardArrowRightRoundedIcon />
-          </IconButton>
-        )}
+            {title}
+          </Typography>
+          {isDesktop ? (
+            <Button
+              className="movie-card-content-details-button"
+              sx={sxs.movieCardDetailButton}
+              color="inherit"
+            >
+              {ucfirst(t('movies.see_details'))}
+            </Button>
+          ) : (
+            <IconButton>
+              <KeyboardArrowRightRoundedIcon />
+            </IconButton>
+          )}
+        </Stack>
+      </Stack>
+      <Stack>
+        <Typography noWrap>{title}</Typography>
       </Stack>
     </Stack>
   )

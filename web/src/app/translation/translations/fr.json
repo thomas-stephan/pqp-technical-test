@@ -5,7 +5,9 @@
     "enable_pagination": "activer la pagination",
     "disable_pagination": "desactiver la pagination",
     "go_back": "retour",
-    "load_more": "charger plus"
+    "load_more": "charger plus",
+    "end_of_results": "fin des resultats",
+    "page_of": "page {{activePage}} / {{totalPages}}"
   },
   "movies": {
     "trending_this_week": "Populaire cette semaine",

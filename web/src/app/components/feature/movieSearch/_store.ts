@@ -9,6 +9,7 @@ type State = {
   isSearchActive: boolean
   pagination?: Pagination
   isPaginationEnabed: boolean
+  isEndReached: boolean
 }
 
 type Actions = {
@@ -22,13 +23,28 @@ export const useSearchStore = create<State & Actions>((set) => ({
     totalPages: 0,
     activePage: 1,
   },
+  isEndReached: false,
   update: (state) =>
-    set((store) => ({
-      ...store,
-      ...state,
-      pagination: {
-        ...store.pagination,
-        ...state.pagination,
-      },
-    })),
+    set((store) => {
+      const res: Partial<State> = {
+        ...store,
+        ...state,
+        pagination: {
+          ...store.pagination,
+          ...state.pagination,
+        },
+      }
+
+      const pagination = res.pagination
+
+      const isEndReached =
+        res.isSearchActive && pagination?.activePage && pagination?.totalPages
+          ? pagination.activePage === pagination.totalPages
+          : false
+
+      return {
+        ...res,
+        isEndReached,
+      }
+    }),
 }))

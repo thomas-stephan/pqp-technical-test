@@ -10,12 +10,23 @@ import { sxs } from './_sxs'
 const MovieCardList: React.FC<MovieCardListProps> = ({
   movies,
   title,
+  titleEnd,
   wrapped = false,
   expandsOnHover = false,
 }) => {
   return (
-    <Stack sx={sxs.MovieCardList} gap=".4rem">
-      {title && <Typography fontSize="1.2rem">{ucfirst(title)}</Typography>}
+    <Stack sx={sxs.MovieCardList} gap=".6rem">
+      <Stack
+        direction="row"
+        gap=".5rem"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        {title && <Typography fontSize="1.3rem">{ucfirst(title)}</Typography>}
+        {titleEnd && (
+          <Typography fontSize=".85rem">{ucfirst(titleEnd)}</Typography>
+        )}
+      </Stack>
       <Stack
         direction="row"
         flexWrap={wrapped ? 'wrap' : 'nowrap'}

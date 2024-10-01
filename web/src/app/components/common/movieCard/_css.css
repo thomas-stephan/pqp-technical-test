@@ -1,7 +1,7 @@
 @import url('../../../../assets/css/tailwind/cards.css');
 
 .movie-card-cover {
-  @apply card-cover h-80;
+  @apply card-cover;
 }
 
 .movie-card {
@@ -9,5 +9,5 @@
 }
 
 .movie-card-content {
-  @apply px-2 md:absolute md:bottom-0 md:left-0 md:right-0 md:px-4 md:py-4;
+  @apply px-2 md:bottom-0 md:left-0 md:right-0 md:px-4 md:py-4;
 }

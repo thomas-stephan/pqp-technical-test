@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 
+import ScrollTopButton from '../../common/scrollTopButton/ScrollTopButton'
 import Footer from '../../navigation/footer/Footer'
 import Header from '../../navigation/header/Header'
 import { PageLayoutProps } from './_props'
@@ -16,6 +17,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       <Header scrollSensitive={scrollSensitive} goBackTo={goBackTo} />
       <Box sx={sxs.pageLayoutContent}>{children}</Box>
       <Footer />
+      <ScrollTopButton />
     </Box>
   )
 }

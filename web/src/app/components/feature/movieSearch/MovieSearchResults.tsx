@@ -16,7 +16,8 @@ const MovieSearchResults: React.FC<MovieSearchResultsProps> = ({
   search,
   error,
 }) => {
-  const { isPaginationEnabed } = useSearchStore()
+  const { isPaginationEnabed, isEndReached, pagination } = useSearchStore()
+
   const infiniteScrollerWrapper = React.useCallback(
     (content: React.ReactNode) => {
       if (!isPaginationEnabed) {
@@ -24,7 +25,7 @@ const MovieSearchResults: React.FC<MovieSearchResultsProps> = ({
           <InfiniteScroller
             loading={loading}
             onLoadMore={() => {
-              if (!loading) {
+              if (!loading && !isEndReached) {
                 onLoadMore()
               }
             }}
@@ -55,6 +56,20 @@ const MovieSearchResults: React.FC<MovieSearchResultsProps> = ({
     })
   }, [search, t])
 
+  const pageOf = React.useMemo(() => {
+    if (
+      isPaginationEnabed &&
+      pagination?.activePage &&
+      pagination?.totalPages
+    ) {
+      return t('global.page_of', {
+        activePage: pagination?.activePage,
+        totalPages: pagination?.totalPages,
+      })
+    }
+    return undefined
+  }, [t, pagination])
+
   if (error) {
     console.error({ error })
     return <Typography>Error</Typography>
@@ -64,7 +79,12 @@ const MovieSearchResults: React.FC<MovieSearchResultsProps> = ({
     <Stack>
       {computedData &&
         infiniteScrollerWrapper(
-          <MovieCardList title={listTitle} movies={computedData} wrapped />,
+          <MovieCardList
+            title={listTitle}
+            titleEnd={pageOf}
+            movies={computedData}
+            wrapped
+          />,
         )}
       <MovieSearchPagination onLoadMore={onLoadMore} loading={loading} />
     </Stack>

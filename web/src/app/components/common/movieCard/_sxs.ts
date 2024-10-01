@@ -13,11 +13,14 @@ export const sxs = makeSx({
     width: {
       xs: `calc(50% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 2)})`,
       md: `calc(33% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
-      lg: `calc(20% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
+      lg: `calc(25% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
     },
     '&:hover .movie-card-content': {
       opacity: 1,
     },
+  },
+  movieCardCover: {
+    height: '20rem',
   },
   movieCardDesktop: {
     '&:hover': {
@@ -66,6 +69,13 @@ export const sxs = makeSx({
     transitionDelay: {
       md: '.07s',
     },
+    position: {
+      xs: 'static',
+      md: 'absolute',
+    },
+    paddingTop: {
+      md: '4rem !important',
+    },
   },
   movieCardDetailButton: {
     transform: {
@@ -100,7 +110,7 @@ export const sxs = makeSx({
     },
     fontSize: {
       xs: '.9rem',
-      md: '1rem',
+      md: '1.2rem',
     },
     color: {
       md: palette.white[500],

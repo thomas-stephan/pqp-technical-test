@@ -13,7 +13,7 @@ export const sxs = makeSx({
     width: {
       xs: `calc(50% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 2)})`,
       md: `calc(33% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
-      lg: `calc(20% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
+      lg: `calc(25% - ${getGapCorrection(parseFloat(defaultCardListSpacing), 1.2)})`,
     },
     height: '20rem',
     transform: 'scale(1)',

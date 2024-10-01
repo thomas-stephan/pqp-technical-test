@@ -1,4 +1,6 @@
-import { Button, CircularProgress, Stack } from '@mui/material'
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded'
+import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
+import { Button, CircularProgress, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,10 +28,6 @@ const buildPagination = (activePage: number, totalPages: number) => {
     pages.push({ index: page })
   }
 
-  if (totalPages > 1 && !pages.some((page) => page.index === totalPages)) {
-    pages.push({ index: totalPages })
-  }
-
   return pages
 }
 
@@ -37,9 +35,12 @@ const MovieSearchPagination: React.FC<MovieSearchPaginationProps> = ({
   onLoadMore,
   loading,
 }) => {
-  const { isPaginationEnabed, pagination } = useSearchStore()
+  const { isPaginationEnabed, pagination, isEndReached } = useSearchStore()
 
   const { t } = useTranslation()
+
+  const activePage = pagination?.activePage ?? 1
+  const totalPages = pagination?.totalPages ?? 1
 
   if (!isPaginationEnabed) {
     if (loading) {
@@ -49,12 +50,23 @@ const MovieSearchPagination: React.FC<MovieSearchPaginationProps> = ({
         </Stack>
       )
     }
+
+    if (isEndReached) {
+      return (
+        <Stack direction="row" justifyContent="center">
+          <Typography>{ucfirst(t('global.end_of_results'))}</Typography>
+        </Stack>
+      )
+    }
+
     return (
       <Stack direction="row" justifyContent="center">
         <Button
           color="inherit"
           onClick={() => {
-            onLoadMore()
+            if (!isEndReached) {
+              onLoadMore()
+            }
           }}
         >
           {ucfirst(t('global.load_more'))}
@@ -63,13 +75,22 @@ const MovieSearchPagination: React.FC<MovieSearchPaginationProps> = ({
     )
   }
 
-  const activePage = pagination?.activePage ?? 1
-  const totalPages = pagination?.totalPages ?? 1
-
   const pages = buildPagination(activePage, totalPages)
 
   return (
     <Stack direction="row" justifyContent="center">
+      {activePage > 1 && (
+        <Button
+          color="inherit"
+          variant="text"
+          sx={sxs.movieSearchPaginationButton}
+          onClick={() => {
+            onLoadMore(activePage - 1)
+          }}
+        >
+          <KeyboardArrowLeftRoundedIcon />
+        </Button>
+      )}
       {pages.map((page) => (
         <Button
           key={page.index}
@@ -84,6 +105,18 @@ const MovieSearchPagination: React.FC<MovieSearchPaginationProps> = ({
           {page.index}
         </Button>
       ))}
+      {activePage < totalPages && (
+        <Button
+          color="inherit"
+          variant="text"
+          sx={sxs.movieSearchPaginationButton}
+          onClick={() => {
+            onLoadMore(activePage + 1)
+          }}
+        >
+          <KeyboardArrowRightRoundedIcon />
+        </Button>
+      )}
     </Stack>
   )
 }

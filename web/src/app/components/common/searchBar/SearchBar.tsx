@@ -47,6 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch }) => {
           onClick={() => {
             onSearch('')
             setSearch('')
+            setIsFocused(false)
           }}
         >
           <CloseRoundedIcon />
